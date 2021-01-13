@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node bin/www",
-    "dev": "./node_modules/.bin/nodemon bin/www",
-    "prd": "pm2 start bin/www",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "cross-env NODE_ENV=dev ./node_modules/.bin/nodemon --inspact=9229 bin/www",
+    "prd": "cross-env NODE_ENV=production pm2 start bin/www",
+    "lint": "eslint --ext .js ./src",
+    "test": "cross-env NODE_ENV=test jest --runInBand --forceExit --colors"
   },
   "dependencies": {
     "debug": "^4.1.1",
@@ -19,9 +19,12 @@
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "koa-views": "^6.2.0",
-    "pug": "^2.0.3"
+    "mysql2": "^2.2.5",
+    "pug": "^2.0.3",
+    "sequelize": "^6.3.5"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "nodemon": "^1.19.1"
   }
 }
