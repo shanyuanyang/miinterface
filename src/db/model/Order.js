@@ -22,6 +22,11 @@ const Order = seq.define('order', {
     type: INTEGER,
     allowNull: false,
     comment: '购物车Id'
+  },
+  totalPrice: {
+    type: FLOAT,
+    allowNull: true,
+    comment: '总价'
   }
 })
 

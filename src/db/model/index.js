@@ -7,21 +7,23 @@ const User = require('./User')
 const Address = require('./Address')
 const Commodity = require('./Commodity')
 const Cart = require('./Cart')
+const Order = require('./Order')
 
 
-// // blog表有外键
-// Blog.belongsTo(User, {
-//   foreignKey: 'userId'
-// })
+// Address表有外键
+Address.belongsTo(User, {
+  foreignKey: 'userId'
+})
 
-// // UserRelation表有外键
-// UserRelation.belongsTo(User, {
-//   foreignKey: 'followerId'
-// })
+// Cart表有外键
+Cart.belongsTo(User, {
+  foreignKey: 'userId'
+})
 
-// User.hasMany(UserRelation, {
-//   foreignKey: 'userId'
-// })
+// Order表有外键
+Order.belongsTo(User, {
+  foreignKey: 'userId'
+})
 
 // Blog.belongsTo(UserRelation, {
 //   foreignKey: 'userId',
@@ -36,5 +38,6 @@ module.exports = {
   User,
   Address,
   Commodity,
-  Cart
+  Cart,
+  Order
 }
