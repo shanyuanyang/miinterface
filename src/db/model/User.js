@@ -21,16 +21,17 @@ const User = seq.define('user', {
   },
   cartId: {
     type: INTEGER,
-    allowNull: false,
+    allowNull: true,
     comment: '购物车id'
   },
   addressId: {
     type: INTEGER,
+    allowNull: true,
     comment: '收货地址Id'
   },
   orderId: {
     type: INTEGER,
-    allowNull: false,
+    allowNull: true,
     comment: '订单Id'
   }
 })

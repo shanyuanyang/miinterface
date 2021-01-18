@@ -4,7 +4,7 @@
  */
 
 const seq = require('../seq')
-const { INTEGER, BOOLEAN } = require('../types')
+const { INTEGER, FLOAT } = require('../types')
 
 // users
 const Order = seq.define('order', {

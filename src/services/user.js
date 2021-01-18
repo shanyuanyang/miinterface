@@ -23,18 +23,20 @@ async function getUserInfo(userName, password) {
     attributes: ['userName', 'cartId', 'addressId', 'orderId'],
     where: whereOpt
   })
+  // console.log('result---', result)
   if (result == null) {
     return result
   }
-  return result.dataValuts
+  return result.dataValues
 }
 
 
-async function creatUser({ usreName, password }) {
-  const result = await User.creat({
+async function creatUser({ userName, password }) {
+  const result = await User.create({
     userName, password
   })
-  return result.dataValuts
+  // console.log('result.dataValuts----', result.dataValuts)
+  return result.dataValues
 
 }
 
