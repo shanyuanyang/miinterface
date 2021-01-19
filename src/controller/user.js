@@ -4,7 +4,7 @@
 */
 const { creatUser, getUserInfo } = require('../services/user')
 const { SuccessModel, ErrorModel } = require('../model/ResModel')
-const { registerUserNameExistInfo, registerFailInfo } = require('../model/ErrorInfo')
+const { registerUserNameExistInfo, registerFailInfo, registerUserNameNotExistInfo, loginFailInfo } = require('../model/ErrorInfo')
 const doCrypto = require('../utils/cryp')
 /**
  * 用户注册
@@ -48,7 +48,40 @@ async function isExist(userName) {
   }
 }
 
+/**
+ * 用户登录
+ * @param {*} ctx 
+ * @param {*} userName 
+ * @param {*} password 
+ */
+async function login(ctx, userName, password) {
+  const userInfo = await getUserInfo(userName, doCrypto(password))
+  // console.log('userInfo----', userInfo)
+  if (!userInfo) {
+    return new ErrorModel(loginFailInfo)
+  }
+  if (ctx.session.userInfo == null) {
+    ctx.session.userInfo = userInfo
+  }
+  return new SuccessModel(userInfo)
 
+}
+
+/**
+ * 单独获取用户信息接口
+ */
+async function getUserInfo1(ctx) {
+  return new SuccessModel(ctx.session.userInfo)
+}
+
+/**
+ * 
+ * @param {*} ctx 
+ */
+async function logout(ctx) {
+  delete ctx.session.userInfo
+  return new SuccessModel()
+}
 module.exports = {
-  register, isExist
+  register, isExist, login, getUserInfo1, logout
 }

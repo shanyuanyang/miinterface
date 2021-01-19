@@ -1,7 +1,7 @@
 const router = require('koa-router')()
 
-const { register, isExist } = require('../../controller/user')
-
+const { register, isExist, login, getUserInfo1, logout } = require('../../controller/user')
+const { loginCheck } = require('../../middlewares/loginChecks')
 router.prefix('/api/user')
 
 
@@ -20,6 +20,21 @@ router.post('/isexist', async (ctx, next) => {
 
 })
 
+// 登录
+router.post('/login', async (ctx, next) => {
+  const { userName, password } = ctx.request.body
+  ctx.body = await login(ctx, userName, password)
+})
 
+// 获取用户信息
+router.get('/userInfo', loginCheck, async (ctx, next) => {
+  ctx.body = await getUserInfo1(ctx)
+})
+
+
+// 退出登录
+router.post('/logout', loginCheck, async (ctx, next) => {
+  ctx.body = await logout(ctx)
+})
 
 module.exports = router
