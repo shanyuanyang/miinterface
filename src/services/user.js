@@ -20,7 +20,7 @@ async function getUserInfo(userName, password) {
   }
   // 查询
   const result = await User.findOne({
-    attributes: ['id','userName', 'cartId', 'addressId', 'orderId'],
+    attributes: ['id', 'userName', 'cartId', 'addressId', 'orderId'],
     where: whereOpt
   })
   // console.log('result---', result)
@@ -30,7 +30,10 @@ async function getUserInfo(userName, password) {
   return result.dataValues
 }
 
-
+/**
+ * 创建用户
+ * @param {*} param0 
+ */
 async function creatUser({ userName, password }) {
   const result = await User.create({
     userName, password
@@ -40,7 +43,32 @@ async function creatUser({ userName, password }) {
 
 }
 
+/**
+ * 修改用户信息
+ * @param {*} param0 
+ */
+async function updateUser({ userName, password, newPassword }) {
+
+  // 需要修改的信息
+  let updateData = {}
+  if (newPassword) {
+    updateData.password = newPassword
+  }
+
+  // 修改条件
+  let whereData = {}
+  if (userName) {
+    whereData.userName = userName
+  }
+  if (password) {
+    whereData.password = password
+  }
+  const result = await User.update(updateData, { where: whereData })
+  return result[0] > 0 //修改行数大于 0  说明修改成功
+}
+
 module.exports = {
   getUserInfo,
-  creatUser
+  creatUser,
+  updateUser
 }

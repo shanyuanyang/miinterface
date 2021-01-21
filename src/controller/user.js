@@ -2,9 +2,9 @@
  * @description user controller
  * @author syy
 */
-const { creatUser, getUserInfo } = require('../services/user')
+const { creatUser, getUserInfo, updateUser } = require('../services/user')
 const { SuccessModel, ErrorModel } = require('../model/ResModel')
-const { registerUserNameExistInfo, registerFailInfo, registerUserNameNotExistInfo, loginFailInfo } = require('../model/ErrorInfo')
+const { registerUserNameExistInfo, registerFailInfo, registerUserNameNotExistInfo, loginFailInfo, changePasswordFailInfo } = require('../model/ErrorInfo')
 const doCrypto = require('../utils/cryp')
 /**
  * 用户注册
@@ -75,13 +75,28 @@ async function getUserInfo1(ctx) {
 }
 
 /**
- * 
+ * 退出登录
  * @param {*} ctx 
  */
 async function logout(ctx) {
   delete ctx.session.userInfo
   return new SuccessModel()
 }
+
+/**
+ * 修改密码
+ * @param {*} param0 
+ */
+async function changePassword({ ctx, password, newPassword }) {
+  const { userName } = ctx.session.userInfo
+  const result = await updateUser({ userName, password: doCrypto(password), newPassword: doCrypto(newPassword) })
+  if (result) {
+    return new SuccessModel()
+  }
+  return new ErrorModel(changePasswordFailInfo)
+}
+
+
 module.exports = {
-  register, isExist, login, getUserInfo1, logout
+  register, isExist, login, getUserInfo1, logout, changePassword
 }
