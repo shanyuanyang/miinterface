@@ -1,5 +1,6 @@
 const Koa = require('koa')
 const app = new Koa()
+const path = require('path')
 const views = require('koa-views')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
@@ -7,7 +8,7 @@ const bodyparser = require('koa-bodyparser')
 const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
 const logger = require('koa-logger')
-
+const koaStatic = require('koa-static')
 
 const {
   REDIS_CONF
@@ -21,6 +22,8 @@ const {
 
 // 路由
 const users = require('./routes/api/users')
+const goods = require('./routes/api/goods')
+const utils = require('./routes/api/utils')
 
 // error handler
 onerror(app)
@@ -31,7 +34,9 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
-app.use(require('koa-static')(__dirname + '/public'))
+app.use(koaStatic(__dirname + '/public'))
+app.use(koaStatic(path.join(__dirname, '..', 'uploadFiles')))
+
 
 app.use(views(__dirname + '/views', {
   extension: 'pug'
@@ -62,6 +67,8 @@ app.use(session({
 
 // routes
 app.use(users.routes(), users.allowedMethods())
+app.use(goods.routes(), goods.allowedMethods())
+app.use(utils.routes(), utils.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

@@ -7,7 +7,7 @@ const seq = require('../seq')
 const { STRING, FLOAT, INTEGER } = require('../types')
 
 // users
-const Commodity = seq.define('commodity', {
+const Good = seq.define('good', {
   name: {
     type: STRING,
     allowNull: false,
@@ -41,4 +41,4 @@ const Commodity = seq.define('commodity', {
 
 })
 
-module.exports = Commodity
+module.exports = Good

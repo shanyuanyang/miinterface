@@ -1,7 +1,7 @@
 /**   
  * @description user services
  * @author syy
-*/
+ */
 
 const User = require('../db/model/User')
 
@@ -16,8 +16,12 @@ async function getUserInfo(userName, password) {
     userName
   }
   if (password) {
-    Object.assign(whereOpt, { password })
+    Object.assign(whereOpt, {
+      password
+    })
   }
+  console.log('whereOpt----', whereOpt)
+
   // 查询
   const result = await User.findOne({
     attributes: ['id', 'userName', 'cartId', 'addressId', 'orderId'],
@@ -34,9 +38,13 @@ async function getUserInfo(userName, password) {
  * 创建用户
  * @param {*} param0 
  */
-async function creatUser({ userName, password }) {
+async function creatUser({
+  userName,
+  password
+}) {
   const result = await User.create({
-    userName, password
+    userName,
+    password
   })
   // console.log('result.dataValuts----', result.dataValuts)
   return result.dataValues
@@ -47,14 +55,18 @@ async function creatUser({ userName, password }) {
  * 修改用户信息
  * @param {*} param0 
  */
-async function updateUser({ userName, password, newPassword }) {
+async function updateUser({
+  userName,
+  password,
+  newPassword
+}) {
 
   // 需要修改的信息
   let updateData = {}
   if (newPassword) {
     updateData.password = newPassword
   }
-
+  console.log('updateData---', updateData)
   // 修改条件
   let whereData = {}
   if (userName) {
@@ -63,7 +75,11 @@ async function updateUser({ userName, password, newPassword }) {
   if (password) {
     whereData.password = password
   }
-  const result = await User.update(updateData, { where: whereData })
+  console.log('whereData---', whereData)
+
+  const result = await User.update(updateData, {
+    where: whereData
+  })
   return result[0] > 0 //修改行数大于 0  说明修改成功
 }
 

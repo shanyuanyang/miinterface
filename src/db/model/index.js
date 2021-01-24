@@ -5,7 +5,7 @@
 
 const User = require('./User')
 const Address = require('./Address')
-const Commodity = require('./Commodity')
+const Good = require('./Good')
 const Cart = require('./Cart')
 const Order = require('./Order')
 
@@ -37,7 +37,7 @@ Order.belongsTo(User, {
 module.exports = {
   User,
   Address,
-  Commodity,
+  Good,
   Cart,
   Order
 }

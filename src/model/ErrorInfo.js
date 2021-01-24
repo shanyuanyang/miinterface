@@ -76,5 +76,9 @@ module.exports = {
   clearCart: {
     errno: 10015,
     message: '删除购物车失败'
+  },
+  deleteGoodMsg: {
+    errno: 10016,
+    message: '删除商品失败'
   }
 }

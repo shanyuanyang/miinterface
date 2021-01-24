@@ -56,7 +56,7 @@ async function isExist(userName) {
  */
 async function login(ctx, userName, password) {
   const userInfo = await getUserInfo(userName, doCrypto(password))
-  // console.log('userInfo----', userInfo)
+  console.log('userInfo----', userInfo)
   if (!userInfo) {
     return new ErrorModel(loginFailInfo)
   }
@@ -90,6 +90,7 @@ async function logout(ctx) {
 async function changePassword({ ctx, password, newPassword }) {
   const { userName } = ctx.session.userInfo
   const result = await updateUser({ userName, password: doCrypto(password), newPassword: doCrypto(newPassword) })
+  console.log('result',result)
   if (result) {
     return new SuccessModel()
   }
