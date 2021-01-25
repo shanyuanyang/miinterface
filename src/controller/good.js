@@ -7,7 +7,8 @@ const {
   createGood,
   getHomeGoodList,
   findGoodDetail,
-  deleteCurGood
+  deleteCurGood,
+  updateCurGood
 } = require('../services/good')
 const {
   SuccessModel,
@@ -15,7 +16,8 @@ const {
 } = require('../model/ResModel')
 const {
   createBlogFailInfo,
-  deleteGoodMsg
+  deleteGoodMsg,
+  updateGoodMsg
 } = require('../model/ErrorInfo')
 
 /**
@@ -79,13 +81,26 @@ async function getGoodDetail(id) {
 }
 
 /**
- * 商品详情
+ * 删除商品
  * @param {*} id 
  */
 async function deleteGood(id) {
   const result = await deleteCurGood(id)
-  if(!result){
+  if (!result) {
     return new ErrorModel(deleteGoodMsg)
+  }
+  return new SuccessModel()
+}
+
+
+/**
+ * 修改商品
+ * @param {*} id 
+ */
+async function updateGood({ ctx, id }, { name, subName, introduce, price, stock, picture }) {
+  const result = await updateCurGood({ id }, { name, subName, introduce, price, stock, picture })
+  if (!result) {
+    return new ErrorModel(updateGoodMsg)
   }
   return new SuccessModel()
 }
@@ -95,5 +110,6 @@ module.exports = {
   addGood,
   goodList,
   getGoodDetail,
-  deleteGood
+  deleteGood,
+  updateGood
 }

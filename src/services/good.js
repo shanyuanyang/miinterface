@@ -65,7 +65,7 @@ async function getHomeGoodList(pageIndex, pageSize) {
  */
 async function findGoodDetail(id) {
   const result = await Good.findOne({
-    attributes: ['id', 'name', 'subName', 'introduce', 'picture', 'price', 'stock', ],
+    attributes: ['id', 'name', 'subName', 'introduce', 'picture', 'price', 'stock',],
     where: {
       id
     }
@@ -89,9 +89,45 @@ async function deleteCurGood(id) {
   return res > 0
 }
 
+/**
+ * 更新商品
+ * @param {*} id 
+ */
+async function updateCurGood({ id, userName }, { name, subName, introduce, price, stock, picture }) {
+  // 修改条件
+  let whereUpdate = {}
+  whereUpdate.id = id
+  console.log('whereUpdate---', whereUpdate)
+  // 修改内容
+  let updataData = {}
+  if (name) {
+    updataData.name = name
+  }
+  if (subName) {
+    updataData.subName = subName
+  }
+  if (introduce) {
+    updataData.introduce = introduce
+  }
+  if (price) {
+    updataData.price = price
+  }
+  if (stock) {
+    updataData.stock = stock
+  }
+  if (picture) {
+    updataData.picture = picture
+  }
+  console.log('updataData---', updataData)
+
+  const result = await Good.update(updataData, { where: whereUpdate })
+  console.log('result----', result)
+  return result[0] > 0 //修改行数大于 0  说明修改成功
+}
 module.exports = {
   createGood,
   getHomeGoodList,
   findGoodDetail,
-  deleteCurGood
+  deleteCurGood,
+  updateCurGood
 }

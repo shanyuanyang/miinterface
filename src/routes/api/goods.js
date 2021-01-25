@@ -6,7 +6,8 @@ const {
   addGood,
   goodList,
   getGoodDetail,
-  deleteGood
+  deleteGood,
+  updateGood
 } = require('../../controller/good')
 
 
@@ -59,5 +60,27 @@ router.delete('/deleteGood/:id', async (ctx, next) => {
   } = ctx.params
   console.log(id)
   ctx.body = await deleteGood(id)
+})
+
+// 修改商品
+router.post('/updateGood/:id', loginCheck, async (ctx, next) => {
+  const {
+    id
+  } = ctx.params
+  const {
+    name,
+    subName,
+    introduce,
+    price,
+    stock,
+    picture } = ctx.request.body
+  ctx.body = await updateGood({ ctx, id }, {
+    name,
+    subName,
+    introduce,
+    price,
+    stock,
+    picture
+  })
 })
 module.exports = router

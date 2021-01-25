@@ -80,5 +80,9 @@ module.exports = {
   deleteGoodMsg: {
     errno: 10016,
     message: '删除商品失败'
+  },
+  updateGoodMsg:{
+    errno: 10017,
+    message: '更新商品失败'
   }
 }
