@@ -1,3 +1,9 @@
+/** 
+ * @description good Api
+ * @author syy
+*/
+
+
 const router = require('koa-router')()
 const {
   loginCheck
