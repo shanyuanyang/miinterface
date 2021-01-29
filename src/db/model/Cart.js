@@ -8,7 +8,7 @@ const { INTEGER, FLOAT } = require('../types')
 
 // users
 const Cart = seq.define('cart', {
-  commodityId: {
+  goodId: {
     type: INTEGER,
     allowNull: true,
     comment: '商品id'
@@ -27,7 +27,7 @@ const Cart = seq.define('cart', {
     type:FLOAT,
     allowNull:true,
     comment:'总价'
-  }
+  },
 })
 
 module.exports = Cart

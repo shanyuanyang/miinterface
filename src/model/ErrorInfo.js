@@ -55,7 +55,7 @@ module.exports = {
     message: '删除用户失败'
   },
   // 添加商品到购物车失败
-  addCart: {
+  addCartMsg: {
     errno: 10011,
     message: '添加购物车失败'
   },

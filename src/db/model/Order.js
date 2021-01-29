@@ -8,7 +8,7 @@ const { INTEGER, FLOAT } = require('../types')
 
 // users
 const Order = seq.define('order', {
-  commodityId: {
+  goodId: {
     type: INTEGER,
     allowNull: true,
     comment: '商品id'
